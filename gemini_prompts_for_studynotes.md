@@ -27,43 +27,6 @@ Hãy đóng vai trò là một chuyên gia Technical Writer chuyên ngành AI/ML
     - Code phải được module hóa rõ ràng (chia làm các bước như mẫu sau).
 
     ```python
-    import os
-    from pathlib import Path
-    from contextlib import nullcontext
-
-    import warnings
-    import argparse
-    import logging
-    import pandas as pd
-    import numpy as np
-    from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-    from sklearn.model_selection import train_test_split
-    from sklearn.linear_model import ElasticNet
-    import mlflow
-    import mlflow.sklearn
-    from mlflow.models.signature import infer_signature
-
-    logging.basicConfig(level=logging.WARN)
-    logger = logging.getLogger(__name__)
-
-    #get arguments from command
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--exp_name", type=str, required=False, default="Elasticnet")
-    parser.add_argument("--nested", action="store_true")
-    parser.add_argument("--alpha", type=float, required=False, default=0.5)
-    parser.add_argument("--l1_ratio", type=float, required=False, default=0.5)
-    parser.add_argument("--alphas", nargs="*", type=float, required=False, default=[0.1, 0.5])
-    parser.add_argument("--l1_ratios", nargs="*", type=float, required=False, default=[0.2, 0.8])
-    args = parser.parse_args()
-
-    #evaluation function
-    def eval_metrics(actual, pred):
-        rmse = np.sqrt(mean_squared_error(actual, pred))
-        mae = mean_absolute_error(actual, pred)
-        r2 = r2_score(actual, pred)
-        return rmse, mae, r2
-
-
     def train_and_log_mlflow(alpha_list, l1_list, train_x, train_y, test_x, test_y, is_nested=False):
         p_name = "GridSearch_ElasticNet" if is_nested else f"alpha_{alpha_list[0]}_l1_{l1_list[0]}"
         with mlflow.start_run(run_name=p_name) as parent_run:
@@ -147,66 +110,6 @@ Hãy đóng vai trò là một chuyên gia Technical Writer chuyên ngành AI/ML
                             # Or you can access run's info after ending the run:
                                 # mlflow.end_run() 
                                 # run = mlflow.last_active_run()
-
-
-
-    if __name__ == "__main__":
-        warnings.filterwarnings("ignore")
-        np.random.seed(40)
-
-        # Read the wine-quality csv file from local
-        data = pd.read_csv("wine_quality.csv")
-
-        # Split the data into training and test sets. (0.75, 0.25) split.
-        train, test = train_test_split(data)
-
-        # The predicted column is "quality" which is a scalar from [3, 9]
-        train_x = train.drop(["quality"], axis=1)
-        test_x = test.drop(["quality"], axis=1)
-        train_y = train[["quality"]]
-        test_y = test[["quality"]]
-
-        if not os.path.exists("data/"):
-            os.mkdir("data/")
-        train.to_csv("data/train.csv", index=False)
-        test.to_csv("data/test.csv", index=False)
-
-
-        if args.nested:
-            alphas_to_run = args.alphas
-            l1_to_run = args.l1_ratios
-            is_nested_mode = True
-        else:
-            alphas_to_run = [args.alpha]
-            l1_to_run = [args.l1_ratio]
-            is_nested_mode = False
-            
-
-        # =========================================================================
-        # MLFLOW TRACKING SETUP
-        # =========================================================================
-        # Set the tracking URI (Local file path or Remote server URL)
-        mlflow.set_tracking_uri("file:///D:/UDEMY/mlops_bc/mlflow_in_action/mlflow_demo/src/local_srv_storage/mlruns")    
-        
-        # Define the experiment name to group related runs
-        experiment_name = args.exp_name
-        artifact_location = "file:///D:/UDEMY/mlops_bc/mlflow_in_action/mlflow_demo/src/local_srv_storage/myartifacts" # Optional: specify where to store artifacts for this experiment
-
-        if mlflow.get_experiment_by_name(experiment_name) is None:
-            mlflow.create_experiment(experiment_name, artifact_location=artifact_location)
-        
-        # Activate the experiment so that all runs will be logged under this experiment
-        mlflow.set_experiment(experiment_name)
-
-        # Start an MLflow run to track the training process
-        train_and_log_mlflow(
-            alphas_to_run, 
-            l1_to_run, 
-            train_x, train_y, test_x, test_y, 
-            is_nested=is_nested_mode
-        )
-        
-
     ```
 
     - Chú thích code (Comments) phải giải thích tại sao lại làm vậy (ví dụ: "Ép kiểu float để tránh lỗi YAML").
