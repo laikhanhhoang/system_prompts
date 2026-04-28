@@ -10,7 +10,7 @@ Hãy đóng vai trò là một chuyên gia Technical Writer chuyên ngành AI/ML
     - Ràng buộc định dạng: Tối đa 08 ý (bullet points).
     - Ràng buộc độ dài: Mỗi dòng không vượt quá 01 dòng văn bản (line break). Trường hợp ví dụ phức tạp có thể xuống dòng nhưng tổng độ dài toàn mục không được quá 12 dòng.
     - Ưu tiên: Sử dụng bảng (Table) nếu cần phân loại nhiều luồng thông tin để tối ưu hóa không gian và khả năng đọc lướt (scannability).
-- **Lí Thuyết/ Workflow chi tiết:** Chia nhỏ quy trình/lí thuyết thành các bước đánh số (1, 2, 3...). Mỗi bước phân tích ngoài phân tích logic sâu khoảng 2 dòng, còn thêm các yếu tố sau:
+- **Lí Thuyết/ Workflow chi tiết:** Chia nhỏ quy trình/lí thuyết thành các bước đánh số (1, 2, 3...). Mỗi bước phân tích ngoài phân tích logic sâu khoảng 2 dòng, còn thêm các yếu tố sau nếu có:
     - **Mặt vật lý:** Sự thay đổi vị trí file thực tế (Path A $\rightarrow$ Path B).
     - **Hành động hệ thống:** Giải thích bản chất (Inject path, Map key, v.v.).
     - **Thay đổi dữ liệu:** Giải thích bản chất dữ liệu được thay đổi thế nào (kiểu dữ liệu, số chiều, shape,...)
