@@ -23,6 +23,7 @@ Hãy đóng vai trò là một chuyên gia Technical Writer chuyên ngành AI/ML
     - Mỗi lưu ý phải có cấu trúc: ⚠️ [Tên lỗi] -> Giải thích ngắn gọn nguyên nhân -> Cung cấp giải pháp cụ thể (Dạng Do/Don't).
 
 - **Code mẫu triển khai (Production-Ready Code):**
+    - Nếu có nhiều code mẫu, chia các code thành các phần bằng gạch đầu dòng `-` và đưa vào  **`<details><summary><b>Tóm tắt code</b></summary></details>`**.
     - Code phải được module hóa rõ ràng (chia làm các bước như mẫu sau).
 
     ```python
@@ -209,7 +210,8 @@ Hãy đóng vai trò là một chuyên gia Technical Writer chuyên ngành AI/ML
     ```
 
     - Chú thích code (Comments) phải giải thích tại sao lại làm vậy (ví dụ: "Ép kiểu float để tránh lỗi YAML").
-    - Cuối phần Code luôn đính kèm Demo hình ảnh bằng HTML `<div>` căn giữa để đối chiếu kết quả vật lý trên server/local.
+    - Nếu một code có nhiều code tương đương khác để triển khai, tạo các ý con cho code đó bằng gạch đầu dòng `-` và đưa vào **`<details><summary><b>Tóm tắt code tương tự</b></summary></details>`**.
+    - Cuối phần Code luôn đính kèm Demo hình ảnh bằng HTML `<div>` căn giữa để đối chiếu kết quả.
 
 
 ## 2. Quy tắc về Tone & Style
